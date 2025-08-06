@@ -1,0 +1,93 @@
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body {
+    text-align: center;
+}
+a {
+    color: #504d50;
+    text-decoration: none;
+}
+a:hover {
+    color: 	#115555;
+}
+
+.hide {
+    display: none;
+}
+
+button {
+    color: #ffffff;
+    background-color: 	#44ab44;
+    border-radius: 12px;
+}
+
+button:hover {
+      background-color:	#65ed65;
+    border-radius: 12px;
+}
+
+#table tr:nth-child(odd) {
+    background-color: #F0F5FA;
+}
+#table tr:nth-child(even) {
+    background-color: #E1EDFA;
+}
+
+#table tr:hover {
+    background-color: #CCDAE8;
+}
+#table th {
+    background-color: #9AA6B2;
+    height: 75px;
+}
+td {
+    padding: 5px;
+    text-align: center;
+}
+
+a {
+    margin-right: 15px;
+}
+img {
+    margin-right: 15px;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+    border-collapse: collapse;
+
+
+}
+
+.taken {
+    font-size: 25px;
+    color: red;
+}
+.data-form {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(131, 131, 131);
+    border: solid;
+    text-align: left;
+}
+.data-form-pick {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(131, 131, 131);
+    border: solid;
+
+}
+#hideLink a {
+
+    color: brown;
+}
+.photo {
+    border-radius: 4px;
+}
+.table {
+     background-color: #F0F5FA;
+}
