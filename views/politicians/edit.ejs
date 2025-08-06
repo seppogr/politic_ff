@@ -1,0 +1,118 @@
+<div class="data-form">
+    <form method="POST" action="<%=`/politicians/${politician._id}/update?_method=PUT`%>">
+
+        <h2>Muuta kansanedustajan tietoja:</h2>
+
+        <p>
+        <label for="inputFirstName">Etunimi</label>
+        <input type="text" name="first" id="inputFirstName" value="<%= politician.name.first %>" placeholder="Etunimi">
+        </p>
+
+        <p>
+        <label for="inputLastName">Sukunimi</label>
+        <input type="text" name="last" id="inputLastName" value="<%= politician.name.last %>" placeholder="Sukunimi">
+        </p>
+
+        <p>
+        Eduskuntaryhmä
+        </br>
+        <input type="radio" name="party" id="inputSDP" value="SDP">
+        <label for="inputSDP">SDP</label></br>
+
+        <input type="radio" name="party" id="inputKesk" value="Keskusta">
+        <label for="inputKesk">Keskusta</label></br>
+
+        <input type="radio" name="party" id="inputVihr" value="Vihreät">
+        <label for="inputVihr">Vihreät</label></br>
+
+        <input type="radio" name="party" id="inputVas" value="Vasemmistoliitto">
+        <label for="inputVas">Vasemmistoliitto</label></br>
+
+        <input type="radio" name="party" id="inputLiik" value="Liike Nyt">
+        <label for="inputLiik">Liike Nyt</label></br>
+
+        <input type="radio" name="party" id="inputTV" value="TV">
+        <label for="inputTV">TV</label></br>
+
+        <input type="radio" name="party" id="inputKok" value="Kokoomus">
+        <label for="inputKok">Kokoomus</label></br>
+
+        <input type="radio" name="party" id="inputPs" value="Perussuomalaiset">
+        <label for="inputPs">Perussuomalaiset</label></br>
+
+        <input type="radio" name="party" id="inputRKP" value="RKP">
+        <label for="inputRKP">RKP</label></br>
+
+        <input type="radio" name="party" id="inputKr" value="Kristillisdemokraatit">
+        <label for="inputKr">Kristillisdemokraatit</label></br>
+        </p>
+
+        <p>
+        Valtaryhmittymä
+        </br>
+        <input type="radio" name="power" id="inputPowerGov" value="Hallitus">
+        <label for="inputPowerGov">Hallitus</label></br>
+
+        <input type="radio" name="power" id="inputPowerOpp" value="Oppositio">
+        <label for="inputPowerOpp">Oppositio</label>
+        </p>
+
+        <p>
+        Asema eduskuntaryhmässä
+        </br>
+        <input type="radio" name="status" id="inputStar" value="Tähti">
+        <label for="inputStar">Tähti</label></br>
+
+        <input type="radio" name="status" id="inputAverage" value="Keskikasti">
+        <label for="inputAverage">Keskikasti</label></br>
+
+        <input type="radio" name="status" id="inputRookie" value="Aloittelija">
+        <label for="inputRookie">Aloittelija</label></br>
+
+
+        </p>
+        <p>
+         Pisteet
+        </br>
+        <label for="inputPointsWon">Saadut pisteet:</label>
+        <input type="text" name="won" id="inputLastName" value=" <%= politician.points.won %>" placeholder="Saadut pisteet">
+        </br>
+        <label for="inputPointsLost">Menetetyt pisteet:</label>
+        <input type="text" name="lost" id="inputPointsLost" value="<%= politician.points.lost %>" placeholder="Menetetyt pisteet">
+        </p>
+
+        <p>
+         Varaus
+        </br>
+         <p>
+        <label for="inputRound">Kierros</label>
+        <input type="text" name="round" id="inputRound" value="<%= politician.draft.round %>" placeholder="Kierros">
+        </p>
+        <p>
+        <label for="inputPickInRound">Varaus kierroksella</label>
+        <input type="text" name="pickInRound" id="inputPickInRound" value="<%= politician.draft.pickInRound %>" placeholder="Pelaaja">
+        </p>
+        <p>
+        <label for="inputTotalPick">Kokonaisvaraus</label>
+        <input type="text" name="totalPick" id="inputTotalPick" value="<%= politician.draft.totalPick %>" placeholder="Pelaaja">
+        </p>
+
+
+
+        <p>
+        <label for="inputPlayer">Pelaaja</label>
+        <input type="text" name="player" id="inputPlayer" value="<%= politician.player %>" placeholder="Pelaaja">
+        </p>
+
+        <p>
+
+
+
+
+
+
+
+        <button type="submit">Päivitä</button>
+
+    </form>
+</div>

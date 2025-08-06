@@ -1,0 +1,22 @@
+<div class="data-form-pick">
+    <form method="POST" action="<%=`/politicians/${politician._id}/choose?_method=PUT`%>">
+
+        <h2>Valitse kansanedustaja </br> <%= politician.nameFull %> </br> tiimiisi:</h2>
+
+        <div class="hide">
+        <input type="text" name="first" id="inputFirstName" value="<%= politician.name.first %>" placeholder="Etunimi">
+        <input type="text" name="last" id="inputLastName" value="<%= politician.name.last %>" placeholder="Sukunimi">
+        <input type="text" name="round" id="inputRound" value="<%= politician.draft.round %>" placeholder="Kierros">
+        <input type="text" name="pickInRound" id="inputPickInRound" value="<%= politician.draft.pickInRound %>" placeholder="Pelaaja">
+        <input type="text" name="totalPick" id="inputTotalPick" value="<%= politician.draft.totalPick %>" placeholder="Pelaaja">
+        <input type="text" name="won" id="inputLastName" value=" <%= politician.points.won %>" placeholder="Saadut pisteet">
+        <input type="text" name="lost" id="inputPointsLost" value="<%= politician.points.lost %>" placeholder="Menetetyt pisteet">
+        </div>
+
+        <label for="inputPlayer">Kirjoita nimesi tähän:</label>
+        <input type="text" name="player" id="inputPlayer" value="<%= politician.player %>" placeholder="Pelaaja">
+
+        <button type="submit">Vahvista valinta</button>
+
+    </form>
+</div>

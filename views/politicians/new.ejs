@@ -1,0 +1,74 @@
+<div class="data-form">
+    <form action="/politicians/create" method="POST">
+        <h2>Luo uusi kansanedustaja:</h2>
+        <p>
+        <label for="inputFirstName">Etunimi:</label>
+        <input type="text" name="first" id="inputFirstName" placeholder="Etunimi">
+        </p>
+
+        <p>
+        <label for="inputLastName">Sukunimi:</label>
+        <input type="text" name="last" id="inputlastName" placeholder="Sukunimi">
+        </p>
+
+        <p>
+        Eduskuntaryhmä
+        </br>
+        <input type="radio" name="party" id="inputSDP" value="SDP">
+        <label for="inputSDP">SDP</label></br>
+
+        <input type="radio" name="party" id="inputKesk" value="Keskusta">
+        <label for="inputKesk">Keskusta</label></br>
+
+        <input type="radio" name="party" id="inputVihr" value="Vihreät">
+        <label for="inputVihr">Vihreät</label></br>
+
+        <input type="radio" name="party" id="inputVas" value="Vasemmistoliitto">
+        <label for="inputVas">Vasemmistoliitto</label></br>
+
+        <input type="radio" name="party" id="inputLiik" value="Liike Nyt">
+        <label for="inputLiik">Liike Nyt</label></br>
+
+        <input type="radio" name="party" id="inputTV" value="TV">
+        <label for="inputTV">TV</label></br>
+
+        <input type="radio" name="party" id="inputKok" value="Kokoomus">
+        <label for="inputKok">Kokoomus</label></br>
+
+        <input type="radio" name="party" id="inputPs" value="Perussuomalaiset">
+        <label for="inputPs">Perussuomalaiset</label></br>
+
+        <input type="radio" name="party" id="inputRKP" value="RKP">
+        <label for="inputRKP">RKP</label></br>
+
+        <input type="radio" name="party" id="inputKr" value="Kristillisdemokraatit">
+        <label for="inputKr">Kristillisdemokraatit</label></br>
+        </p>
+
+        <p>
+        Valtaryhmittymä
+        </br>
+        <input type="radio" name="power" id="inputPowerGov" value="Hallitus">
+        <label for="inputPowerGov">Hallitus</label></br>
+
+        <input type="radio" name="power" id="inputPowerOpp" value="Oppositio">
+        <label for="inputPowerOpp">Oppositio</label>
+        </p>
+
+        <p>
+        Asema eduskuntaryhmässä
+        </br>
+        <input type="radio" name="status" id="inputStar" value="Tähti">
+        <label for="inputStar">Tähti</label></br>
+
+        <input type="radio" name="status" id="inputAverage" value="Keskikasti">
+        <label for="inputAverage">Keskikasti</label></br>
+
+        <input type="radio" name="status" id="inputRookie" value="Aloittelija">
+        <label for="inputRookie">Aloittelija</label></br>
+        </p>
+
+        <button type="submit">Tallenna</button>
+
+    </form>
+</div>

@@ -1,0 +1,169 @@
+<h2 class="center">Kansanedustajat</h2>
+<div>
+
+</div>
+<table id="table">
+    <thead>
+
+        <tr>
+            <div class="tableHead">
+            <th>Nimi</th>
+            <th></th>
+            <th></th>
+            <th>Eduskuntaryhmä</th>
+            <th>Valtaryhmittymä</th>
+            <th>Status</th>
+            <th></th>
+            <th>Pelaaja
+                </br>
+                 <button class="sortButton" onclick="sortTable(7)">Järjestä</button>
+            </th>
+            <th>Kokonaispisteet
+            </br>
+                <button class="sortButton" onclick="sortTableNumber(8)">Järjestä</button>
+            </th>
+            <th>Kokonaisvaraus</th>
+            <th></th>
+            <th></th>
+         </div>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        <% var total = 0; %>
+        <% var amount = 0; %>
+        <% var restWon = 0; %>
+        <% var restLost = 0; %>
+        <% var rest = 0; %>
+        <% var restWonAndLost = 0; %>
+        <% var bothWonAndLost = 0; %>
+        <% var teamLoseTotal = 0; %>
+
+        <% var teamTotal = 0; %>
+
+        <% politicians.forEach(politician => { %>
+        <tr>
+            <td>
+                <a href="<%=`/politicians/${politician._id}`%>">
+                    <%= politician.fullName %>
+                </a>
+
+            </td>
+            <td>
+               <a href="<%=`/politicians/${politician._id}`%>"> <img class="photo" src="<%=`/images/mps/${politician._id}.jpg` %>" height="75" width="51"></a>
+            </td>
+
+
+            <td><a href="<%=`/politicians/${politician.party}/showParty`%>"><img class="photo" src="<%=`/images/logos/${politician.party}.png` %>" height="51" width="51"></a></td>
+
+            <td><a href="<%=`/politicians/${politician.party}/showParty`%>"><%= politician.party %> </a></td>
+
+            <td><a href="<%=`/politicians/${politician.power}/showPower`%>"><%= politician.power %></a></td>
+
+            <td><a href="<%=`/politicians/${politician.status}/showStatus`%>"> <img src="<%=`/images/stats/${politician.status}.png` %>" height="51" width="51"></a></td>
+
+            <td>
+                <div id="hideLink">
+
+                <a href="<%=`/politicians/${politician._id}/pick`%>"><button>Valitse</button></a>
+
+            </a>
+
+
+            </td>
+
+            <td>
+                <div id="hideThisDiv">
+                    <%= politician.player %>
+                </div>
+
+            </td>
+            <td>
+                <%= politician.totalPoints %>
+            </td>
+            <td>
+                <%= politician.draft.totalPick %>
+            </td>
+            <td>
+            <div class="totals">
+                 <% if (politician.points.won == 0 && politician.points.lost == 0) { %>
+                <%  total++; %>
+            <% } %>
+            </div>
+            <div class="restWonAndLost">
+                 <% if (politician.points.lost != 0 && politician.totalPoints == 0) { %>
+                <%  restWonAndLost++; %>
+            <% } %>
+            </div>
+            <div class="bothWonAndLost">
+                 <% if (politician.points.lost != 0 && politician.points.won != 0) { %>
+                <%  bothWonAndLost++; %>
+            <% } %>
+            </div>
+
+            <div class="rest">
+                 <% if (politician.points.won != 0 || politician.points.lost !=0) { %>
+                <%  rest++; %>
+            <% } %>
+            </div>
+            <div class="restWon">
+                 <% if (politician.points.won != 0 && politician.points.lost == 0) { %>
+                <%  restWon++; %>
+            <% } %>
+            </div>
+            <div class="restLost">
+                 <% if (politician.points.lost != 0 && politician.points.won == 0) { %>
+                <%  restLost++; %>
+            <% } %>
+            </div>
+
+            <div class="amount">
+                 <% if (politician) { %>
+                <%  amount++; %>
+            <% } %>
+            </div>
+            <div class="totalPoints">
+                 <% if (politician) { %>
+                <%  teamTotal = teamTotal + politician.points.won; %>
+            <% } %>
+            </div>
+            <div class="totalLostPoints">
+                 <% if (politician) { %>
+                <%  teamLoseTotal = teamLoseTotal + politician.points.lost; %>
+            <% } %>
+            </div>
+
+
+        </td>
+
+    </tr>
+        <% }); %>
+    </tbody>
+</table>
+ <h2> Pelkästään toi pisteitä: <%= restWon %> / <%= amount %>  </h2>
+ <h2> Pelkästään menetti pisteitä: <%= restLost %> / <%= amount %>  </h2>
+ <h2> Menetti ja voitti yhtä paljon pisteitä: <%= restWonAndLost; %> / <%= amount %></h2>
+ <h2> Sekä menetti ja toi pisteitä: <%= bothWonAndLost; %> / <%= amount %></h2>
+ <h2> Joko menetti tai toi pisteitä: <%= rest %> / <%= amount %>  </h2>
+ <h2> Kansanedustajaa ei vaikuttanut pisteisiin: <%= total %> / <%= amount %> </h2>
+ <h2> Yhteensä saadut kansanedustajapisteet: <%= teamTotal %> </h2>
+ <h2> Yhteensä hävityt kansanedustajapisteet: <%= teamLoseTotal %></h2>
+
+
+ <h2> Only gained points: <%= restWon %> / <%= amount %>  </h2>
+ <h2> Only lost points: <%= restLost %> / <%= amount %>  </h2>
+ <h2> Gained and lost the same amount of points: <%= restWonAndLost; %> / <%= amount %></h2>
+ <h2> Both lost and gained points: <%= bothWonAndLost; %> / <%= amount %></h2>
+ <h2> Either gained or lost points: <%= rest %> / <%= amount %>  </h2>
+ <h2> Did not gain or lose points: <%= total %> / <%= amount %> </h2>
+ <h2> Total points gained by all MPs: <%= teamTotal %></h2>
+ <h2> Total points lost by all MPs: <%= teamLoseTotal %></h2>
+
+
+
+
+
+
+
+

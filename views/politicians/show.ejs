@@ -1,0 +1,81 @@
+<h1> Tiedot kansanedustajasta <%= politician.nameFull %> </h1>
+
+ <table class="table">
+     <tr>
+        <th><img class="photo" src="<%=`/images/mps/${politician._id}.jpg` %>" height="75" width="51"></th>
+
+        <td> <img class="photo" src="<%=`/images/logos/${politician.party}.png` %>" height="51" width="51"> <img src="<%=`/images/stats/${politician.status}.png` %>" height="51" width="51">
+        </td>
+    </tr>
+     <tr>
+        <th>Sukunimi: </th>
+        <td><%= politician.name.last %> </td>
+    </tr>
+     <tr>
+        <th>Etunimi: </th>
+        <td><%= politician.name.first %></td>
+    </tr>
+
+    <tr>
+        <th>Puolue: </th>
+        <td><%= politician.party %></td>
+    </tr>
+
+    <tr>
+        <th>Valtaryhmittymä: </th>
+        <td><%= politician.power %></td>
+    </tr>
+
+     <tr>
+        <th>Status: </th>
+        <td><%= politician.status %></td>
+    </tr>
+
+     <tr>
+        <th>Pelaaja: </th>
+        <td><%= politician.player %></td>
+    </tr>
+     <tr>
+        <th>Saadut pisteet: </th>
+        <td><%= politician.points.won %></td>
+    </tr>
+     <tr>
+        <th>Menetetyt pisteet: </th>
+        <td><%= politician.points.lost %></td>
+    </tr>
+     <tr>
+        <th>Kokonaispisteet: </th>
+        <td><%= politician.totalPoints %></td>
+    </tr>
+
+     <tr>
+        <th>Varauskierros: </th>
+        <td><%= politician.draft.round %></td>
+    </tr>
+     <tr>
+        <th>Kierroksen varaus: </th>
+        <td><%= politician.draft.pickInRound %></td>
+    </tr>
+      <tr>
+        <th>Kokonaisvaraus: </th>
+        <td><%= politician.draft.totalPick %></td>
+    </tr>
+    <div>
+        <a href="/politicians">Takaisin kansanedustajalistaan</a>
+    </div>
+
+    <div>
+        <a href="<%=`/politicians/${politician._id}/edit`%>">
+            Muokkaa
+        </a>
+    </div>
+    <div>
+        <a href="<%= `/politicians/${politician._id}/delete?_method=DELETE` %>" onclick="return confirm('Poista kansanedustaja pysyvästi?')">
+            Poista
+        </a>
+    </div>
+</table>
+<p>
+Tiedot päivitetty: <%= politician.updatedAt %>
+</p>
+

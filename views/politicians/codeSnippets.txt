@@ -1,0 +1,22 @@
+    <thead>
+
+        <tr>
+            <div class="tableHead">
+            <th>Nimi</br>
+                <button class="sortButton" onclick="sortTable(0)">Järjestä</button></th>
+            <th></th>
+            <th></th>
+            <th>Eduskuntaryhmä </br>
+                <button class="sortButton" onclick="sortTable(3)">Järjestä</button></th>
+            <th>Valtaryhmittymä </br>
+                <button class="sortButton" onclick="sortTable(4)">Järjestä</button></th>
+            <th>Status </br>
+                <button class="sortButton" onclick="sortTable(5)">Järjestä</button></th>
+            <th></th>
+            <th>Pelaaja</br>
+                 <button class="sortButton" onclick="sortTable(7)">Järjestä</button></th>
+            <th></th>
+         </div>
+        </tr>
+
+    </thead>

@@ -1,0 +1,42 @@
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<script src="/js/script.js"></script>
+<body>
+    <div id="nav">
+        <a href="/politicians">Kaikki kansanedustajat</a>
+        <a href="/politicians/new">Lisää kansanedustaja</a>
+
+        <p>
+
+
+    <form action="/politicians/searchLastName" method="POST">
+    <label for="lastName">Sukunimihaku:</label>
+    <input type="text" name="lastName" id="lastName" placeholder="Hae">
+    <button type="submit">Hae</button>
+    </form>
+
+
+    <form action="/politicians/searchPlayerName" method="POST">
+    <label for="playerName">Pelaajahaku:</label>
+    <input type="text" name="player" id="playerName" placeholder="Hae">
+    <button type="submit">Hae</button>
+    </form>
+
+
+        </p>
+
+    </div>
+    <%- body %>
+    <div id="footer"></div>
+
+    <div class="flashes">
+        <% if (flashMessages) { %>
+            <% if (flashMessages.success) { %>
+                <div class="flash-success"><%= flashMessages.success %></div>
+            <% } else if (flashMessages.error) { %>
+                <div class="flash-error"><%= flashMessages.error %></div>
+            <% } else if (flashMessages.loaded) { %>
+                <div class="flash-loaded"><%= flashMessages.loaded %></div>
+            <% } %>
+        <% } %>
+    </div>
+</body>
