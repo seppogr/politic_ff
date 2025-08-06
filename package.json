@@ -1,0 +1,19 @@
+{
+  "name": "politic_ff",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seppogr/politic_ff.git"
+  },
+  "author": "Seppo Grubert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seppogr/politic_ff/issues"
+  },
+  "homepage": "https://github.com/seppogr/politic_ff#readme"
+}
