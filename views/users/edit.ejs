@@ -1,1 +1,23 @@
-<h1>edit page</h1>
+<div class="data-form">
+    <form method="POST" action="<%=`/users/${user._id}/update?_method=PUT`%>">
+
+        <h2>Muuta käyttäjän <%= user.name.nick %> tietoja:</h2>
+
+        <p>
+        <label for="inputFirstName">Etunimi</label>
+        <input type="text" name="first" id="inputFirstName" value="<%= user.name.first %>" placeholder="Etunimi">
+        </p>
+
+        <p>
+        <label for="inputLastName">Sukunimi</label>
+        <input type="text" name="last" id="inputLastName" value="<%= user.name.last %>" placeholder="Sukunimi">
+        </p>
+        <p>
+        <label for="inputPassword">Salasana</label>
+        <input type="text" name="password" id="inputPassword" value="<%= user.password %>" placeholder="Salasana">
+        </p>
+
+        <button type="submit">Päivitä</button>
+
+    </form>
+</div>

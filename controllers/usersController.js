@@ -38,10 +38,11 @@ module.exports = {
         else next();
     },
 
-      new: (req, res) => {
+    new: (req, res) => {
         res.render("users/new");
     },
-      test: (req, res) => {
+
+    test: (req, res) => {
         res.render("users/usertest");
     }
 }

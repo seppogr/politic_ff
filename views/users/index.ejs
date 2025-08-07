@@ -1,0 +1,36 @@
+<h2>Käyttäjät</h2>
+<table id="table">
+    <thead>
+        <tr>
+            <th>Pelaajanimi</th>
+            <th>Nimi</th>
+            <th>Muokkaa</th>
+            <th>Poista</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% users.forEach(user => %>
+        <tr>
+            <td>
+                <a href="<%= `/users/${user._id}` %>">
+                    <%= user.name.nick %>
+                </a>
+            </td>
+            <td>
+                <%= user.fullname %>
+            </td>
+            <td>
+                <a href="<%= `/users/${user._id}/edit` %>">
+                    Muokkaa
+                </a>
+            </td>
+            <td>
+                <a href="<%= `/users/${user._id}/delete?_method=DELETE` %>" onclick="return confirm('Poistettanko käyttäjän sekä kaikki tiedot?')">
+                    Poista
+                </a>
+            </td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>

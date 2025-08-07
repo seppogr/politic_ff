@@ -17,9 +17,12 @@ const userSchema = new Schema (
                 trim: true
             }
         },
-        team: {
-            type: Array
-        },
+        team: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Politician"
+            }
+        ],
         password: {
             type: String
         }
