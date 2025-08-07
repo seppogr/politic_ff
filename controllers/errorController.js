@@ -1,3 +1,5 @@
+// Handle 404 and 500 errors
+
 const httpStatus = require("http-status-codes");
 
 module.exports = {

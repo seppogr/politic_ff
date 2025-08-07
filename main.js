@@ -8,6 +8,7 @@ const connectFlash = require("connect-flash");
 
 const errorController = require("./controllers/errorController");
 const politiciansController = require("./controllers/politiciansController");
+const usersController = require("./controllers/usersController");
 
 
 const app = express();
@@ -71,8 +72,9 @@ router.get("/politicians/:id/pick", politiciansController.pick);
 router.put("/politicians/:id/choose", politiciansController.choose, politiciansController.redirectView);
 router.delete("/politicians/:id/delete", politiciansController.delete, politiciansController.redirectView);
 
-
-
+router.get("/users/new", usersController.new);
+router.get("/users/usertest", usersController.test);
+router.post("/users/create", usersController.create, usersController.redirectView);
 
 
 

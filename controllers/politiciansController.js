@@ -1,5 +1,9 @@
+// Handle different actions and views when fetchin information
+// from the Mongodb database
+
 const politician = require("../models/politician");
 
+// Fetch information from datbase and set it as variables
 const Politician = require("../models/politician"),
     getPoliticianParams = (body) => {
         return {
@@ -21,12 +25,14 @@ const Politician = require("../models/politician"),
                 pickInRound: body.pickInRound,
                 totalPick: body.totalPick
             },
-
-
         };
     };
 
+// All associated actions are listed here
+
 module.exports = {
+
+// Fetch an index of all required politicians
     index: (req, res, next) => {
         Politician.find()
         .then(politicians => {
@@ -39,6 +45,7 @@ module.exports = {
         })
     },
 
+// Render a view of all fetched politicians
     indexView: (req, res) => {
         res.render("politicians/index", {
             flashMessages: {
@@ -68,6 +75,7 @@ module.exports = {
         });
     },
 
+// Set redirectpath
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if(redirectPath) res.redirect(redirectPath);
@@ -236,8 +244,4 @@ showSearchPlayer: (req, res, next) => {
             next(error);
         });
     }
-
-
-
 };
-
