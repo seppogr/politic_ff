@@ -3,6 +3,7 @@ const mongoose = require("mongoose"),
 
 const userSchema = new Schema (
     {
+
          name: {
             first: {
                 type: String,
@@ -17,12 +18,12 @@ const userSchema = new Schema (
                 trim: true
             }
         },
-        team: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "Politician"
-            }
-        ],
+        // team: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: "Politician"
+        //     }
+        // ],
         password: {
             type: String
         }

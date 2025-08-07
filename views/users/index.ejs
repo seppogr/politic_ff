@@ -10,10 +10,11 @@
     </thead>
 
     <tbody>
-        <% users.forEach(user => %>
+        <% users.forEach(user => { %>
         <tr>
             <td>
-                <a href="<%= `/users/${user._id}` %>">
+                <a href="<%=`/users/${user._id}`%>">
+
                     <%= user.name.nick %>
                 </a>
             </td>
@@ -31,6 +32,7 @@
                 </a>
             </td>
         </tr>
+
         <% }); %>
     </tbody>
 </table>

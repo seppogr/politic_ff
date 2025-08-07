@@ -53,7 +53,7 @@ router.get("/", (req, res) => {
     res.send("Draft page");
 });
 
-
+// Poitician routes
 
 router.get("/politicians", politiciansController.index, politiciansController.indexView);
 router.get("/politicians/:party/showParty", politiciansController.showParty, politiciansController.indexView);
@@ -72,12 +72,21 @@ router.get("/politicians/:id/pick", politiciansController.pick);
 router.put("/politicians/:id/choose", politiciansController.choose, politiciansController.redirectView);
 router.delete("/politicians/:id/delete", politiciansController.delete, politiciansController.redirectView);
 
+
+// User routes
+router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
-router.get("/users/usertest", usersController.test);
+//router.get("/users/usertest", usersController.test);
+
 router.post("/users/create", usersController.create, usersController.redirectView);
 
+router.get("/users/:id", usersController.show, usersController.showView);
+router.get("/users/:id/edit", usersController.edit);
+router.put("/users/:id/update", usersController.update, usersController.redirectView);
+router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);
 
 
+// Error routes
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
 app.listen(app.get("port"), () => {
