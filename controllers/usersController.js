@@ -132,6 +132,33 @@ module.exports = {
                 next(error);
             });
         },
+
+    login: (req, res) => {
+        res.render("users/login");
+    },
+
+    authenticate: (req, res, next) => {
+
+        User.findOne({
+            email: req.body.email
+        })
+        .then(user => {
+            if (user && user.password === req.body.password) {
+                res.locals.redirect = `/users/${user._id}`;
+                req.flash("success", `${user.fullName} sisäänkirjautuminen onnistui!`);
+                res.locals.user = user;
+                next();
+            } else {
+                req.flash("error", `${user.fullname} ei saatu kirjattua sisään!`);
+                res.locals.redirect = "/users/login";
+                next();
+            }
+        })
+        .catch(error => {
+            console.log(`AUTHENTICATE error in user ${user.fullname}`);
+            next(error);
+        });
+    },
 // Render a test page, used for quick testing only
     test: (req, res) => {
         res.render("users/usertest");
