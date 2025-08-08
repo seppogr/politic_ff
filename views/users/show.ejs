@@ -1,5 +1,14 @@
-<h1>show page:    <%= user.name.nick %> </h1>
+<h1> <%= user.name.nick %> </h1>
 <p>
-Salasana: <%= user.password %>
+    Etunimi: <%= user.name.first %>
+</p>
+<p>
+    Sukunimi: <%= user.name.last %>
+</p>
+<p>
+    Sähköposti: <%= user.email %>
+</p>
+<p>
+    Salasana: <%= user.password %>
 </p>
 Käyttäjällä on tiimissään <%= user.team.length %> poliitikkoa.

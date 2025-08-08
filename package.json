@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/seppogr/politic_ff#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",

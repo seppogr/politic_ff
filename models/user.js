@@ -1,6 +1,7 @@
 // mongoose schema for the "User" model, including all the associated virtual attributes
 const mongoose = require("mongoose"),
 {Schema} = mongoose;
+const bcrypt = require("bcrypt");
 
 const userSchema = new Schema (
     {
@@ -46,5 +47,22 @@ userSchema.virtual("fullName")
     return `${this.name.last} ${this.name.first}`
 });
 
+userSchema.pre("save", function(next) {
+    let user = this;
+    bcrypt.hash(user.password, 10)
+    .then(hash => {
+        user.password = hash;
+        next();
+    })
+    .catch(error => {
+        console.log(`Hashing error: ${error.message}`);
+        next(error);
+    });
+});
+
+userSchema.methods.passwordComparison = function(inputPassword) {
+    let user  = this;
+    return bcrypt.compare(inputPassword, user.password);
+};
 
 module.exports = mongoose.model("User", userSchema);
