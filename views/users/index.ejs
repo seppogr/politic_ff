@@ -4,6 +4,8 @@
         <tr>
             <th>Pelaajanimi</th>
             <th>Nimi</th>
+            <th>Sähköposti</th>
+            <th>Salasana</th>
             <th>Muokkaa</th>
             <th>Poista</th>
         </tr>
@@ -19,7 +21,16 @@
                 </a>
             </td>
             <td>
-                <%= user.fullname %>
+
+                <%= user.fullName %>
+            </td>
+            <td>
+
+                <%= user.email %>
+            </td>
+            <td>
+
+                <%= user.password %>
             </td>
             <td>
                 <a href="<%= `/users/${user._id}/edit` %>">

@@ -1,3 +1,5 @@
 <h1>show page:    <%= user.name.nick %> </h1>
+<p>
 Salasana: <%= user.password %>
-Käyttäjällä on tiimissään __ XXX __ poliitikkoa.
+</p>
+Käyttäjällä on tiimissään <%= user.team.length %> poliitikkoa.

@@ -1,4 +1,5 @@
-
+// mongoose schema for "Politician" model. Includes also all virtual attributes
+// derived from the schema entries
 const mongoose = require("mongoose"),
 {Schema} = mongoose;
 

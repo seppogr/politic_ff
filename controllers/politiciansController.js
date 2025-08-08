@@ -32,7 +32,7 @@ const Politician = require("../models/politician"),
 
 module.exports = {
 
-// Fetch an index of all required politicians
+// Fetch all politicians from the database
     index: (req, res, next) => {
         Politician.find()
         .then(politicians => {
@@ -45,7 +45,8 @@ module.exports = {
         })
     },
 
-// Render a view of all fetched politicians
+// Render a view of all fetched politicians by "index" command. Is also used in
+// searches to show a desired selection of politicians.
     indexView: (req, res) => {
         res.render("politicians/index", {
             flashMessages: {
@@ -53,11 +54,11 @@ module.exports = {
             }
         });
     },
-
+// Render politicians/new.ejs
     new: (req, res) => {
         res.render("politicians/new");
     },
-
+// Create and add a new politician into the database
     create: (req, res, next) => {
         let politicianParams = getPoliticianParams(req.body);
         Politician.create(politicianParams)
@@ -75,13 +76,14 @@ module.exports = {
         });
     },
 
-// Set redirectpath
+// Read redirectpath and render into view
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if(redirectPath) res.redirect(redirectPath);
         else next();
     },
 
+// Show a single politician's data
     show: (req, res, next) => {
         var politicianId = req.params.id;
         Politician.findById(politicianId)
@@ -95,10 +97,13 @@ module.exports = {
         });
     },
 
+// Render politicians/show.ejs into view
     showView: (req, res) => {
         res.render("politicians/show");
     },
 
+// Render politicians/edit.ejs into view, before that fetch th politicians's data
+// from database so that the user can view the data before editing
     edit: (req, res, next) => {
         var politicianId = req.params.id;
         Politician.findById(politicianId)
@@ -113,6 +118,8 @@ module.exports = {
         });
     },
 
+// Render politicians/pick.ejs into view, used to pick a politician
+// into a player's team
     pick: (req, res, next) => {
         var politicianId = req.params.id;
         Politician.findById(politicianId)
@@ -127,6 +134,7 @@ module.exports = {
         });
     },
 
+// Write the edited politician's data into the database
     update: (req, res, next) => {
         let politicianId = req.params.id;
         let politicianParams = getPoliticianParams(req.body);
@@ -145,6 +153,7 @@ module.exports = {
             });
     },
 
+// Set a politician into a player's team
     choose: (req, res, next) => {
         let politicianId = req.params.id,
             politicianParams = getPoliticianParams(req.body);
@@ -163,6 +172,7 @@ module.exports = {
             });
     },
 
+// Remove a politician permanently from the database
     delete: (req, res, next) => {
         let politicianId = req.params.id;
         Politician.findByIdAndDelete(politicianId)
@@ -176,6 +186,7 @@ module.exports = {
         });
     },
 
+// Fetch all desired party members from the database. Indexview is used to show these onscreen
      showParty: (req, res, next) => {
         var partyId = req.params.party;
         Politician.find({party: partyId})
@@ -188,7 +199,7 @@ module.exports = {
             next(error);
         });
     },
-
+// Fetch all politician by status (rookie, veteran, regular)
     showStatus: (req, res, next) => {
         var statusId = req.params.status;
         Politician.find({status: statusId})
@@ -202,6 +213,7 @@ module.exports = {
         })
     },
 
+// Fetch all politicians by government/opposition status
     showPower: (req, res, next) => {
         var powerId = req.params.power;
         Politician.find({power: powerId})
@@ -214,12 +226,13 @@ module.exports = {
             next();
         })
     },
-
+// NOT USED???? TEST THIS
     searchLastName: (req,res) => {
         res.render("politicians/searchLastName");
     },
 
-showSearchLastName: (req, res, next) => {
+// Fetch politicians by name from database
+    showSearchLastName: (req, res, next) => {
     var politicianName = req.body.lastName;
     Politician.find({'name.last': politicianName})
         .then(politicians => {
@@ -231,8 +244,8 @@ showSearchLastName: (req, res, next) => {
             next(error);
         });
     },
-
-showSearchPlayer: (req, res, next) => {
+// Show politicians by user(player) nickname
+    showSearchPlayer: (req, res, next) => {
     var playerName = req.body.player;
     Politician.find({player: playerName})
         .then(politicians => {

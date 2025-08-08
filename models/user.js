@@ -1,3 +1,4 @@
+// mongoose schema for the "User" model, including all the associated virtual attributes
 const mongoose = require("mongoose"),
 {Schema} = mongoose;
 
@@ -18,14 +19,21 @@ const userSchema = new Schema (
                 trim: true
             }
         },
-        // team: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: "Politician"
-        //     }
-        // ],
+        team: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Politician"
+            }
+        ],
         password: {
-            type: String
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true,
+            lowercase: true,
+            unique: true
         }
     },
     {

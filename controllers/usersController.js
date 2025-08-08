@@ -1,6 +1,6 @@
 const user = require("../models/user");
 
-
+// Set user parameters into a variable for future reference and use
 const User = require("../models/user"),
     getUserParams = (body) => {
         return {
@@ -9,13 +9,14 @@ const User = require("../models/user"),
                 last: body.last,
                 nick: body.nick
             },
-           // team: body.team,
-            password: body.password
+            team: body.team,
+            password: body.password,
+            email: body.email
         };
     };
 
 module.exports = {
-
+// Create new user
     create: (req, res, next) => {
             let userParams = getUserParams(req.body);
             User.create(userParams)
@@ -33,16 +34,19 @@ module.exports = {
             });
         },
 
+// Show a given view, read from the res.locals.redirect defined by previous action
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if(redirectPath) res.redirect(redirectPath);
         else next();
     },
 
+// Render users/new.ejs into view
     new: (req, res) => {
         res.render("users/new");
     },
 
+// Fetch all users from the database
     index: (req, res, next) => {
         User.find()
                 .then(users => {
@@ -54,7 +58,7 @@ module.exports = {
                     next(error);
                 })
     },
-
+// Render all defined (by search) users friom the database
     indexView: (req, res) => {
         res.render("users/index", {
             flashMessages: {
@@ -63,6 +67,7 @@ module.exports = {
         });
     },
 
+// Fetch single user data from database
     show: (req, res, next) => {
         var userId = req.params.id;
                 User.findById(userId)
@@ -75,10 +80,13 @@ module.exports = {
                     next(error);
                 });
     },
+
+// Render "users/show.ejs" into view
     showView: (req, res) => {
         res.render("users/show");
     },
 
+// fetch user data from database so it can be edited
    edit: (req, res, next) => {
            var userId = req.params.id;
            User.findById(userId)
@@ -93,6 +101,7 @@ module.exports = {
            });
        },
 
+// Write the updated data into database
     update: (req, res, next) => {
         let userId = req.params.id;
         let userParams = getUserParams(req.body);
@@ -110,7 +119,7 @@ module.exports = {
                 next(error);
             });
     },
-
+// Remove a user from database
      delete: (req, res, next) => {
             let userId = req.params.id;
             User.findByIdAndDelete(userId)
@@ -123,7 +132,7 @@ module.exports = {
                 next(error);
             });
         },
-
+// Render a test page, used for quick testing only
     test: (req, res) => {
         res.render("users/usertest");
     }
