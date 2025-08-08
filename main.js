@@ -5,6 +5,7 @@ const methodOverride = require("method-override");
 const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
+const expressValidator = require("express-validator");
 
 const errorController = require("./controllers/errorController");
 const politiciansController = require("./controllers/politiciansController");
@@ -26,6 +27,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(layouts);
 app.use(express.static("public"));
+
 router.use(methodOverride("_method", {
     methods: ["POST", "GET"]
 }));
@@ -45,6 +47,7 @@ router.use((req, res, next) => {
     next();
 });
 
+router.use(expressValidator());
 app.set("port", process.env.PORT || 3000);
 
 app.use("/", router);
@@ -81,7 +84,7 @@ router.get("/users/new", usersController.new);
 router.get("/users/login", usersController.login);
 router.post("/users/login", usersController.authenticate, usersController.redirectView);
 
-router.post("/users/create", usersController.create, usersController.redirectView);
+router.post("/users/create", usersController.validate, usersController.create, usersController.redirectView);
 router.get("/users/:id", usersController.show, usersController.showView);
 router.get("/users/:id/edit", usersController.edit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);

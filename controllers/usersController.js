@@ -167,6 +167,29 @@ module.exports = {
             next(error);
         });
     },
+
+    validate: (req, res, next) => {
+        req.sanitizeBody("email").normalizeEmail(
+            {
+                all_lowercase: true
+            }
+        ).trim();
+        req.check("email", "Sähköpostiosoite ei kelpaa!").isEmail();
+        req.check("password", "Kenttä ei voi olla tyhjä!").isEmpty();
+
+        req.getValidationResult()
+        .then((error) => {
+            if (!error.isEmpty()) {
+                let messages = error.array().map(e => e.msg);
+                req.skip = true;
+                req.flash("error", messages.join(" and "));
+                res.locals.redirect = "/users/new";
+                next();
+            } else {
+                next();
+            }
+        });
+    },
 // Render a test page, used for quick testing only
     test: (req, res) => {
         res.render("users/usertest");
