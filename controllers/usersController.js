@@ -1,3 +1,5 @@
+const passport = require("passport");
+
 const user = require("../models/user");
 
 // Set user parameters into a variable for future reference and use
@@ -18,20 +20,21 @@ const User = require("../models/user"),
 module.exports = {
 // Create new user
     create: (req, res, next) => {
-            let userParams = getUserParams(req.body);
-            User.create(userParams)
-            .then(user => {
-                req.flash("success", `${user.fullName}'s data created succesfully`);
+         if (req.skip) next();
+
+
+        let newUser = new User(getUserParams(req.body));
+        User.register(newUser, req.body.password, (error, user) => {
+            if (user) {
+                req.flash("success", `Käyttäjän ${user.fullname} tili luotin onnistuneesti!`);
                 res.locals.redirect = "/users";
-                res.locals.user = user;
                 next();
-            })
-            .catch(error => {
-                console.log(`CREATE error saving user: ${error.message}`);
+            } else {
+                req.flash("error", `Tiliä ei voitu luoda: ${error.message}`);
                 res.locals.redirect = "/users/new";
-                req.flash("error", `Failed to create user: ${error.message}`);
                 next();
-            });
+            }
+        });
         },
 
 // Show a given view, read from the res.locals.redirect defined by previous action
@@ -137,36 +140,36 @@ module.exports = {
         res.render("users/login");
     },
 
-    authenticate: (req, res, next) => {
+    // authenticate: (req, res, next) => {
 
-        User.findOne({
-            email: req.body.email
-        })
-        .then(user => {
-            if (user) {
-                user.passwordComparison(req.body.password)
-                .then(passwordsMatch => {
-                    if (passwordsMatch) {
-                        res.locals.redirect = `/users/${user._id}`;
-                        req.flash("success", `${user.fullName} sisäänkirjautuminen onnistui!`);
-                        res.locals.user = user;
-                    } else {
-                        req.flash("error", "Väärä salasana!");
-                        res.locals.redirect = "/users/login";
-                    }
-                    next();
-                });
-            } else {
-                req.flash("error", "Käyttäjätiliä ei löydy!");
-                res.locals.redirect = "/users/login";
-                next();
-            }
-        })
-        .catch(error => {
-            console.log(`AUTHENTICATE error in user ${user.fullname}`);
-            next(error);
-        });
-    },
+    //     User.findOne({
+    //         email: req.body.email
+    //     })
+    //     .then(user => {
+    //         if (user) {
+    //             user.passwordComparison(req.body.password)
+    //             .then(passwordsMatch => {
+    //                 if (passwordsMatch) {
+    //                     res.locals.redirect = `/users/${user._id}`;
+    //                     req.flash("success", `${user.fullName} sisäänkirjautuminen onnistui!`);
+    //                     res.locals.user = user;
+    //                 } else {
+    //                     req.flash("error", "Väärä salasana!");
+    //                     res.locals.redirect = "/users/login";
+    //                 }
+    //                 next();
+    //             });
+    //         } else {
+    //             req.flash("error", "Käyttäjätiliä ei löydy!");
+    //             res.locals.redirect = "/users/login";
+    //             next();
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.log(`AUTHENTICATE error in user ${user.fullname}`);
+    //         next(error);
+    //     });
+    // },
 
     validate: (req, res, next) => {
         req.sanitizeBody("email").normalizeEmail(
@@ -175,7 +178,7 @@ module.exports = {
             }
         ).trim();
         req.check("email", "Sähköpostiosoite ei kelpaa!").isEmail();
-        req.check("password", "Kenttä ei voi olla tyhjä!").isEmpty();
+        //req.check("password", "Kenttä ei voi olla tyhjä!").isEmpty();
 
         req.getValidationResult()
         .then((error) => {
@@ -190,6 +193,30 @@ module.exports = {
             }
         });
     },
+
+    authenticate: passport.authenticate("local", {
+        failureRedirect: "/users/login",
+        failureFlash: "Sisäänkirjautuminen ei onnistunut!",
+        successRedirect: "/users/usertest",
+        successFlash: "Sisäänkirjauduttu!"
+    }),
+
+    logout: (req, res, next) => {
+        req.logout(req.user, error => {
+            if (error) {
+                req.flash("error", "ERRORIA");
+                next(error);
+            } else {
+                req.flash("success", "Uloskirjautuminen onnistui!");
+                res.locals.redirect = "/users";
+                next();
+            }
+        });
+
+
+
+    },
+
 // Render a test page, used for quick testing only
     test: (req, res) => {
         res.render("users/usertest");

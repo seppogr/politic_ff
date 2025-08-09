@@ -2,14 +2,18 @@ const express = require("express");
 const mongoose = require("mongoose");
 const layouts = require("express-ejs-layouts");
 const methodOverride = require("method-override");
+const passport = require("passport");
 const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
 const expressValidator = require("express-validator");
 
+
 const errorController = require("./controllers/errorController");
 const politiciansController = require("./controllers/politiciansController");
 const usersController = require("./controllers/usersController");
+
+const User = require("./models/user");
 
 
 const app = express();
@@ -40,14 +44,26 @@ router.use(expressSession({
     resave: false,
     saveUninitialized: false
 }));
-router.use(connectFlash());
 
+
+
+router.use(connectFlash());
+router.use(expressValidator());
+router.use(passport.initialize());
+router.use(passport.session());
 router.use((req, res, next) => {
     res.locals.flashMessages = req.flash();
+    res.locals.loggedIn = req.isAuthenticated();
+    res.locals.currentUser = req.user;
     next();
 });
 
-router.use(expressValidator());
+
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.set("port", process.env.PORT || 3000);
 
 app.use("/", router);
@@ -79,10 +95,19 @@ router.delete("/politicians/:id/delete", politiciansController.delete, politicia
 // User routes
 router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
-//router.get("/users/usertest", usersController.test);
+router.get("/users/usertest", usersController.test);
 
 router.get("/users/login", usersController.login);
-router.post("/users/login", usersController.authenticate, usersController.redirectView);
+router.post("/users/login", usersController.authenticate);
+
+router.get("/users/logout", usersController.logout, usersController.redirectView);
+
+// router.get("/users/logout", (req, res) => {
+//   req.logout(req.user, err => {
+//     if(err) return next(err);
+//     res.redirect("/users");
+//   });
+// });
 
 router.post("/users/create", usersController.validate, usersController.create, usersController.redirectView);
 router.get("/users/:id", usersController.show, usersController.showView);

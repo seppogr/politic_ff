@@ -6,8 +6,15 @@
         <a href="/politicians/new">Lisää kansanedustaja</a>
         <a href="/users/new">Lisää käyttäjä</a>
         <a href="/users">Kaikki käyttäjät</a>
-        <a href="/users/login">Login</a>
 
+
+        <% if (loggedIn) { %>
+            Logged in as <a href="<%=`/users/${currentUser._id}`%>"><%= currentUser.fullName %> </a>
+            <% } else { %>
+                <a href="/users/login">Kirjaudu</a>
+                <% } %>
+
+        <a href="/users/logout">Uloskirjautuminen</a>
         <p>
 
 

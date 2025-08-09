@@ -2,6 +2,7 @@
 const mongoose = require("mongoose"),
 {Schema} = mongoose;
 const bcrypt = require("bcrypt");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new Schema (
     {
@@ -26,10 +27,10 @@ const userSchema = new Schema (
                 ref: "Politician"
             }
         ],
-        password: {
-            type: String,
-            required: true
-        },
+        // password: {
+        //     type: String,
+        //     required: true
+        // },
         email: {
             type: String,
             required: true,
@@ -42,27 +43,31 @@ const userSchema = new Schema (
     }
 );
 
+userSchema.plugin(passportLocalMongoose, {
+    usernameField: "email"
+});
+
 userSchema.virtual("fullName")
 .get(function() {
     return `${this.name.last} ${this.name.first}`
 });
 
-userSchema.pre("save", function(next) {
-    let user = this;
-    bcrypt.hash(user.password, 10)
-    .then(hash => {
-        user.password = hash;
-        next();
-    })
-    .catch(error => {
-        console.log(`Hashing error: ${error.message}`);
-        next(error);
-    });
-});
+// userSchema.pre("save", function(next) {
+//     let user = this;
+//     bcrypt.hash(user.password, 10)
+//     .then(hash => {
+//         user.password = hash;
+//         next();
+//     })
+//     .catch(error => {
+//         console.log(`Hashing error: ${error.message}`);
+//         next(error);
+//     });
+// });
 
-userSchema.methods.passwordComparison = function(inputPassword) {
-    let user  = this;
-    return bcrypt.compare(inputPassword, user.password);
-};
+// userSchema.methods.passwordComparison = function(inputPassword) {
+//     let user  = this;
+//     return bcrypt.compare(inputPassword, user.password);
+// };
 
 module.exports = mongoose.model("User", userSchema);
