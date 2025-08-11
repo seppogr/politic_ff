@@ -1,1 +1,10 @@
 <h1> users-kansion TESTISIVUN reititys/lataus/tms onnistui!!!</h1>
+
+
+ <% if (loggedIn) { %>
+            Logged in as <a href="<%=`/users/${currentUser._id}`%>"><%= currentUser.fullName %> </a>
+            <% } else { %>
+                <a href="/users/login">Kirjaudu</a>
+                <% } %>
+
+        <a href="/users/logout">Uloskirjautuminen</a>
