@@ -55,7 +55,7 @@ let addPickButtonListener = () => {
     });
 };
 
-// this prints out the associated courses for the user that has logged in, as a table1
+// this prints out the associated courses for the user that has logged in, as a table
 let printPoliticianData = () => {
        $( "#politicians-button" ).on( "click", function() {
         $(".modal-footer").text("");
@@ -65,38 +65,48 @@ let printPoliticianData = () => {
             <div>
             Sinun tiimisi:
             </div>
-        <table class="table">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Cost</th>
 
-        </tr>
-    </thead>
+
+            <thead>
+                <tr>
+                    <th>Nimi</th>
+                    <th>Kuva</th>
+                    <th>Puolue</th>
+                    <th>Logo</th>
+                </tr>
+            </thead>
+
+
             `);
              data.politicians.forEach((politician) => {
                 $(".modal-footer").append(
                     `
-                    <table class="table">
 
-    <tbody>
-
-        <tr>
-            <td>
-                ${politician._id}
-
-            </td>
-
-
-        </tr>
-
-    </tbody>
-</table>
-
+            <div class="center">
+            <ul>
+            <li>
+                <h2>
+                ${politician.name.first} ${politician.name.last}
+                </h2>
+            </li>
+            <li>
+               <a href="/politicians/${politician._id}"> <img class="photo" src="/images/mps/${politician._id}.jpg" height="75" width="51"></a>
+               </li>
+            <li>
+            <a href="/politicians/${politician.party}/showParty"><img class="photo" src="/images/logos/${politician.party}.png" height="51" width="51"></a>
+            </li>
+            <li>
+                <a href="/politicians/${politician.party}/showParty">${politician.party} </a>
+            </li>
+                </ul>
+            <div>
 
                     `
                 );
+
+`
+
+ `
             });
         //     for (let i = 0; i < data.courses.length; i++) {
         //     //if(data.courses[i].joined == true){

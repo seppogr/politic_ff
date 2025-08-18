@@ -23,7 +23,7 @@ button {
 }
 
 button:hover {
-      background-color:	#65ed65;
+    background-color:	#65ed65;
     border-radius: 12px;
 }
 
@@ -89,5 +89,21 @@ table {
     border-radius: 4px;
 }
 .table {
-     background-color: #F0F5FA;
+     background-color: #0e65bb;
+}
+.center {
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+
+
+
+}
+ul {
+    list-style-type: none;
+    background-color: #9AA6B2;
+}
+li {
+     text-align: center;
+    list-style-type: none;
 }
