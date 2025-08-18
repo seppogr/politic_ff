@@ -63,11 +63,16 @@ module.exports = {
     },
 // Render all defined (by search) users friom the database
     indexView: (req, res) => {
-        res.render("users/index", {
+        if (req.query.format === "json") {
+            res.json(res.locals.users);
+        } else {
+                 res.render("users/index", {
             flashMessages: {
                 loaded: "Nämä käyttäjät löytyivät."
             }
         });
+        }
+
     },
 
 // Fetch single user data from database

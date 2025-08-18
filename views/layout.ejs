@@ -1,4 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="/js/politiciansApp.js"></script>
 <script src="/js/script.js"></script>
 <body>
     <div id="nav">
@@ -30,9 +33,14 @@
     <input type="text" name="player" id="playerName" placeholder="Hae">
     <button type="submit">Hae</button>
     </form>
+    </p>
 
+    <p>
+         <li>
+                <%- include('politicians/_politiciansModal') %>
+            </li>
+    </p>
 
-        </p>
 
     </div>
     <%- body %>

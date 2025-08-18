@@ -20,3 +20,85 @@
         </tr>
 
     </thead>
+
+
+
+    <table id="table">
+    <thead>
+
+        <tr>
+            <div class="tableHead">
+            <th>Nimi</th>
+            <th></th>
+            <th></th>
+            <th>Eduskuntaryhmä</th>
+            <th>Valtaryhmittymä</th>
+            <th>Status</th>
+            <th></th>
+            <th>Pelaaja
+                </br>
+                 <button class="sortButton" onclick="sortTable(7)">Järjestä</button>
+            </th>
+            <th>Kokonaispisteet
+            </br>
+                <button class="sortButton" onclick="sortTableNumber(8)">Järjestä</button>
+            </th>
+            <th>Kokonaisvaraus</th>
+            <th></th>
+            <th></th>
+         </div>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+
+
+        <tr>
+            <td>
+
+                    ${politician._fullName}
+
+            </td>
+            <td>
+               <a href="/politicians/${politician._id}"> <img class="photo" src="<%=`/images/mps/${politician._id}.jpg` %>" height="75" width="51"></a>
+            </td>
+
+
+            <td><a href="<%=`/politicians/${politician.party}/showParty`%>"><img class="photo" src="<%=`/images/logos/${politician.party}.png` %>" height="51" width="51"></a></td>
+
+            <td><a href="<%=`/politicians/${politician.party}/showParty`%>"><%= politician.party %> </a></td>
+
+            <td><a href="<%=`/politicians/${politician.power}/showPower`%>"><%= politician.power %></a></td>
+
+            <td><a href="<%=`/politicians/${politician.status}/showStatus`%>"> <img src="<%=`/images/stats/${politician.status}.png` %>" height="51" width="51"></a></td>
+
+            <td>
+                <div id="hideLink">
+
+                <a href="<%=`/politicians/${politician._id}/pick`%>"><button>Valitse</button></a>
+
+            </a>
+
+
+            </td>
+
+            <td>
+                <div id="hideThisDiv">
+                    <%= politician.player %>
+                </div>
+
+            </td>
+            <td>
+                <%= politician.totalPoints %>
+            </td>
+            <td>
+                <%= politician.draft.totalPick %>
+            </td>
+
+
+    </tr>
+
+    </tbody>
+</table>

@@ -66,9 +66,9 @@ app.set("port", process.env.PORT || 3000);
 
 app.use("/", router);
 
-router.get("/", (req, res) => {
-    res.send("Draft page");
-});
+// router.get("/", (req, res) => {
+//     res.send("Draft page");
+// });
 
 
 app.listen(app.get("port"), () => {

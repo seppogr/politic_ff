@@ -1,6 +1,7 @@
 // Handle different actions and views when fetchin information
 // from the Mongodb database
-
+const httpStatus = require("http-status-codes");
+const User = require("../models/user");
 const politician = require("../models/politician");
 
 // Fetch information from datbase and set it as variables
@@ -34,6 +35,7 @@ module.exports = {
 
 // Fetch all politicians from the database
     index: (req, res, next) => {
+        console.log("index");
         Politician.find()
         .then(politicians => {
             res.locals.politicians = politicians;
@@ -47,12 +49,17 @@ module.exports = {
 
 // Render a view of all fetched politicians by "index" command. Is also used in
 // searches to show a desired selection of politicians.
-    indexView: (req, res) => {
-        res.render("politicians/index", {
+     indexView: (req, res) => {
+        if (req.query.format === "json") {
+            res.json(res.locals.politicians);
+        } else {
+                 res.render("politicians/index", {
             flashMessages: {
                 loaded: "Nämä kansanedustajat löytyivät."
             }
         });
+        }
+
     },
 // Render politicians/new.ejs
     new: (req, res) => {
@@ -256,5 +263,102 @@ module.exports = {
             console.log(`SHOW error fetching politician: ${error.message}`);
             next(error);
         });
+    },
+
+    respondJSON: (req, res) => {
+        console.log("respondJSON");
+        res.json({
+            status: httpStatus.StatusCodes.OK,
+            data: res.locals
+        });
+    },
+
+    errorJSON: (error, req, res, next) => {
+        let errorObject;
+        if (error) {
+            errorObject = {
+                status: httpStatus.StatusCodes.INTERNAL_SERVER_ERROR,
+                message: error.message
+            };
+        } else {
+            errorObject = {
+                status: httpStatus.StatusCodes.INTERNAL_SERVER_ERROR,
+                message: "Unknown error"
+            };
+        }
+        res.json(errorObject);
+    },
+
+////////////////////////////////////////////////////
+    joinTeam: (req, res, next) => {
+
+        let politicianId = req.params.id;
+        let currentUser = req.user;
+          console.log(politicianId);
+          console.log(currentUser);
+
+        if (currentUser) {
+            User.findByIdAndUpdate(currentUser, {
+                $addToSet: {
+                    politicians: politicianId
+                }
+            })
+            .then(() => {
+                res.locals.success = true;
+                next();
+            })
+            .catch(error => {
+                console.log("POLITICIAN TEAM JOIN ERROR");
+                next(error);
+            });
+        } else {
+            console.log("Must log in");
+            next(new Error("User must log in"));
+        }
+    },
+
+
+    // First assign true or false to all politicians depending
+    // if they are in logged users team
+    // then return only the politicians with true flag
+    // Seems wasteful to do it runtime at every call, probably could transfer to
+    // a database-based approach with db.find where politician.user == currentUser?
+    // This works, though and updates live.
+
+    filterUserPoliticians: (req, res, next) => {
+        let currentUser = res.locals.currentUser;
+        let returnPoliticians = [];
+
+        if (currentUser) {
+            console.log("filtteröidään");
+            let mappedPoliticians = res.locals.politicians.map((politician) => {
+
+                let userJoined = currentUser.politicians.some((userPolitician) => {
+                    //console.log("filtteröidään2");
+                    return userPolitician.equals(politician._id);
+
+
+                });
+
+                return Object.assign(politician.toObject(), {joined: userJoined});
+            });
+
+            for (let i = 0; i < mappedPoliticians.length; i++) {
+            if (mappedPoliticians[i].joined) {
+                returnPoliticians.push(mappedPoliticians[i]);
+            }
+           }
+            res.locals.politicians = returnPoliticians;
+
+            console.log(mappedPoliticians.length);
+            console.log(returnPoliticians.length);
+
+            next();
+        } else {
+                console.log("ei filtteröinti onnistu");
+            next();
+        }
     }
+
+
 };
