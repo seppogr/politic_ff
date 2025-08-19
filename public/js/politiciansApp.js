@@ -2,7 +2,7 @@
 $(function() {
     let data;
     $( "#modal-button" ).on( "click", function() {
-        $( ".modal-body" ).html(" ");
+        $( ".modal-body" ).text("");
          $.get("api/politicians", (results = {}) => {
             data = results.data;
             if (!data || !data.politicians) return;
@@ -10,7 +10,7 @@ $(function() {
                 $(".modal-body").append(
                     `<div>
                     <div class="politician-name">
-                     ${politician.name.first}
+                     ${politician.name.first} ${politician.name.last}
                     </div>
                     <div class="politician-picked" data-id="${politician._id}>
                       ${politician.joined}
@@ -56,14 +56,17 @@ let addPickButtonListener = () => {
 };
 
 // this prints out the associated courses for the user that has logged in, as a table
-let printPoliticianData = () => {
+//let printPoliticianData = () => {
+    $(function() {
+    let data;
        $( "#politicians-button" ).on( "click", function() {
-        $(".modal-footer").text("");
+        $( ".modal-body" ).text("");
          $.get("api/politicians/userpoliticians", (results = {}) => {
              data = results.data;
-            $( ".modal-footer" ).append(`
+
+            $( ".modal-body" ).append(`
             <div>
-            Sinun tiimisi:
+            Sinun tiimisi
             </div>
 
 
@@ -79,13 +82,15 @@ let printPoliticianData = () => {
 
             `);
              data.politicians.forEach((politician) => {
-                $(".modal-footer").append(
+                $(".modal-body").append(
+
                     `
 
             <div class="center">
             <ul>
             <li>
                 <h2>
+
                 ${politician.name.first} ${politician.name.last}
                 </h2>
             </li>
@@ -98,16 +103,20 @@ let printPoliticianData = () => {
             <li>
                 <a href="/politicians/${politician.party}/showParty">${politician.party} </a>
             </li>
+            <li>
+            Saadut pisteet: ${politician.points.won}
+            </li>
                 </ul>
             <div>
 
                     `
                 );
-
-`
-
- `
             });
+            });
+
+
+
+
         //     for (let i = 0; i < data.courses.length; i++) {
         //     //if(data.courses[i].joined == true){
         //          $( ".modal-footer" ).append(
@@ -138,7 +147,7 @@ let printPoliticianData = () => {
 
 
      });
-}
+
 
 // $(function() {
 //              $(document).on("click", "s-clicked", function() {
