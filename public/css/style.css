@@ -107,3 +107,11 @@ li {
      text-align: center;
     list-style-type: none;
 }
+
+.gridOfPoliticians {
+    background-color: #44ab44;
+    display: inline-grid;
+    width: 150px;
+    height: 135px;
+    margin: 5px;
+}
